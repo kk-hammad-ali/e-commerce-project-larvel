@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
+
 class AuthorizeController extends Controller
 {
     public function welcome()
@@ -57,14 +58,18 @@ class AuthorizeController extends Controller
         if (Auth::attempt($credentials)) {
             $role = Auth::user()->role;
             if ($role == '1') {
-                $products = Product::latest()->paginate(5);
+                $products = Product::latest()->paginate(50);
                 return view('products.index', compact('products'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
             } else {
-                return view('welcome');
+                $productController = app()->make(ProductController::class);
+                return $productController->categorywise();
             }
+        } else {
+            return redirect('/login')->with('error', 'Invalid email or password');
         }
-    }
+    }   
+    
     public function store(Request $request)
     {  
         $user = new User();

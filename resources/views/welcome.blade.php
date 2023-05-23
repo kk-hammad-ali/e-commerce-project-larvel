@@ -13,6 +13,28 @@
     <link rel="stylesheet" href="assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="assets/css/owl-carousel.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <div class="pubble-app" data-app-id="120327" data-app-identifier="120327"></div>
+    <script type="text/javascript" src="https://cdn.chatify.com/javascript/loader.js" defer></script>
+    <style>
+        .product-detail {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 2.4em; 
+            line-height: 1.2em;
+        }
+        .product-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +55,9 @@
                         </a>
                         <ul class="nav">
                             <li><a href="#top" class="active">Home</a></li>
+                            @if(Auth::check())
                             <li><a href="{{url('/cart')}}">Cart</a></li>
+                            @endif
                             <li><a href="{{url('/about')}}">About Us</a></li>
                             <li><a href="{{url('/contactus')}}">Contact Us</a></li>
 
@@ -62,14 +86,11 @@
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
-                        <!-- ***** Menu End ***** -->
                     </nav>
                 </div>
             </div>
         </div>
     </header>
-    <!-- ***** Header Area End ***** -->
-    <!-- ***** Explore Area Starts ***** -->
     <section class="section" id="explore">
         <div class="main-banner" id="top">
             <div class="container">
@@ -105,7 +126,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="second-image">
-                                        <img src="assets/images/explore-image-02.jpg" alt="">
+                                        <img src="assets/images/instagram-06.jpg" alt="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -142,17 +163,29 @@
                                     <div class="thumb">
                                     <div class="hover-content">
                                         @if(Auth::check())
-                                            <ul>
-                                                <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
+                                        <ul class="list-unstyled text-center">
+                                            <li>
+                                                <form method="POST" action="{{ route('orders.store') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+                                                    <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                                                    <input type="hidden" name="product_name" value="{{ $product->name }}">
+                                                    <input type="hidden" name="product_price" value="{{ $product->price }}">
+                                                    <input type="hidden" name="product_image" value="{{ asset('image/'.$product->image) }}">
+                                                    <button type="submit" class="btn btn-light rounded-circle">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
                                         @endif
                                     </div>
-                                        <img src="{{ asset('image/'.$product->image) }}" alt="" width="500" height="500">
+                                        <img src="{{ asset('image/'.$product->image) }}" alt="" width="400" height="400">
                                     </div>
                                     <div class="down-content">
-                                        <h4>{{$product->name}}</h4>
+                                        <h4 class="product-name">{{$product->name}}</h4>
                                         <span>${{$product->price}}</span>
-                                        <span>{{$product->detail}}</span>
+                                        <span class="product-detail">{{$product->detail}}</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -160,10 +193,9 @@
                     </div>
                 </div>
             </div>
-    </div>
-    <!-- ***** Men Area Ends ***** -->
+        </div>
+    </section>
 
-    <!-- ***** Women Area Starts ***** -->
     <section class="section" id="women">
         <div class="container">
             <div class="row">
@@ -185,16 +217,29 @@
                                 <div class="thumb">
                                 <div class="hover-content">
                                         @if(Auth::check())
-                                            <ul>
-                                                <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
+                                        <ul class="list-unstyled text-center">
+                                            <li>
+                                                <form method="POST" action="{{ route('orders.store') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+                                                    <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                                                    <input type="hidden" name="product_name" value="{{ $product->name }}">
+                                                    <input type="hidden" name="product_price" value="{{ $product->price }}">
+                                                    <input type="hidden" name="product_image" value="{{ asset('image/'.$product->image) }}">
+                                                    <button type="submit" class="btn btn-light rounded-circle">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
                                         @endif
                                     </div>
-                                    <img src="{{ asset('image/'.$product->image) }}" alt="" width="500" height="500">
+                                    <img src="{{ asset('image/'.$product->image) }}" alt="" width="400" height="400">
                                 </div>
                                 <div class="down-content">
-                                    <h4>{{$product->name}}</h4>
+                                    <h4 class="product-name">{{$product->name}}</h4>
                                     <span>${{$product->price}}</span>
+                                    <span class="product-detail">{{$product->detail}}</span>
                                 </div>
                             </div>
                             @endforeach
@@ -228,16 +273,29 @@
                                 <div class="thumb">
                                 <div class="hover-content">
                                     @if(Auth::check())
-                                        <ul>
-                                            <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <ul class="list-unstyled text-center">
+                                            <li>
+                                                <form method="POST" action="{{ route('orders.store') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+                                                    <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                                                    <input type="hidden" name="product_name" value="{{ $product->name }}">
+                                                    <input type="hidden" name="product_price" value="{{ $product->price }}">
+                                                    <input type="hidden" name="product_image" value="{{ asset('image/'.$product->image) }}">
+                                                    <button type="submit" class="btn btn-light rounded-circle">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
                                         </ul>
                                     @endif
                                 </div>
-                                    <img src="{{ asset('image/'.$product->image) }}" alt="" width="500" height="500">
+                                    <img src="{{ asset('image/'.$product->image) }}" alt="" width="400" height="400">
                                 </div>
                                 <div class="down-content">
-                                    <h4>{{$product->name}}</h4>
+                                    <h4 class="product-name">{{$product->name}}</h4>
                                     <span>${{$product->price}}</span>
+                                    <span class="product-detail">{{$product->detail}}</span>
                                 </div>
                             </div>
                             @endforeach
@@ -371,6 +429,22 @@
                     $("." + selectedClass).fadeIn();
                     $("#portfolio").fadeTo(50, 1);
                 }, 500);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(".product-detail").each(function() {
+                var maxHeight = parseFloat($(this).css("max-height"));
+                var lineHeight = parseFloat($(this).css("line-height"));
+                var textHeight = parseFloat($(this).css("height"));
+                
+                if (textHeight > maxHeight) {
+                var lines = Math.floor(maxHeight / lineHeight);
+                $(this).css("-webkit-line-clamp", lines);
+                $(this).css("max-height", (lineHeight * lines) + "px");
+                }
             });
         });
     </script>

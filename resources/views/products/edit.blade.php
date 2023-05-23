@@ -12,24 +12,14 @@
         </div>
     @endif
     
-    <div class="card custom-card" style="width: 600px; height: 600px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+    <div class="card custom-card" style="width: 600px; height: 500px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin: 0 auto; display: flex; justify-content: center; align-items: center;">
         <form action="{{ route('products.update',$product->id) }}" method="POST" enctype="multipart/form-data"> 
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="col-lg-12 margin-tb">
-                    <div class="pull-left">
-                        <h2>Edit Product</h2>
-                    </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
-                </div>
-            </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <div class="form-group">
-                        <img src="/image/{{ $product->image }}" width="120px" height="120px" style="margin-top: 10px; display: inline-block;">
+                        <img src="/image/{{ $product->image }}" width="110px" height="110px" style="margin-top: 10px; display: inline-block;">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -39,7 +29,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <textarea class="form-control" style="height:100px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
+                        <textarea class="form-control" style="height:60px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -54,7 +44,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                    <input type="file" name="image" class="form-control" placeholder="image" style="margin-bottom: 10px;">
+                    <input type="file" name="image" style="height:60px; padding-top:20px;" class="form-control" placeholder="image" style="margin-bottom: 10px;">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">

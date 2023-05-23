@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthorizeController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\OrderController;
 use App\Models\Product;
 
 
@@ -20,35 +20,45 @@ use App\Models\Product;
 |
 */
 
+// categories wise products
 Route::get('/', [ProductController::class, 'categorywise']);
 
 
+// all pages
 Route::post('/contact', [ContactController::class, 'sendMessage'])->name('contact.send');
 Route::get('/contactus',[AuthorizeController::class,'contact']);
 Route::get('/about',[AuthorizeController::class,'about']);
 Route::get('/products',[AuthorizeController::class,'product']);
-Route::get('/cart',[AuthorizeController::class,'cart']);
 
+
+// auth 
 Route::get('/register',[AuthorizeController::class,'viewregister']);
 Route::get('/login',[AuthorizeController::class,'viewlogin']);
-
 Route::post('/register',[AuthorizeController::class,'store'])->name('register');
 Route::post('/login',[AuthorizeController::class,'loginpost']);
-Route::get('/dashboard', [AuthorizeController::class, 'dashboard'])->name('dashboard'); 
-
-Route::resource('products', ProductController::class);
-
-
-
-// Route::get('/singleproduct/{id}', [ProductController::class, 'showSingleProduct'])->name('singleproduct');
-
-
-
 
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+
+
+// admin routes
+Route::resource('products', ProductController::class);
+
+
+// orders
+Route::get('/cart', [OrderController::class, 'index'])->name('cart');
+Route::post('/', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/cart/delete/{orderId}', [OrderController::class, 'delete'])->name('orders.delete');
+Route::get('/cart/deleteall', [OrderController::class, 'deleteall'])->name('orders.delete');
+Route::post('/cart/delete-all', [OrderController::class, 'deleteAll'])->name('orders.deleteall');
+
+
+// Route::get('/singleproduct/{id}', [ProductController::class, 'showSingleProduct'])->name('singleproduct');
+
+
 
 
 
