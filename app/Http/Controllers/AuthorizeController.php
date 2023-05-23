@@ -48,28 +48,28 @@ class AuthorizeController extends Controller
         return view('singleproduct');
     }     
 
+
     public function loginpost(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         if (Auth::attempt($credentials)) {
             $role = Auth::user()->role;
             if ($role == '1') {
-                $products = Product::latest()->paginate(50);
-                return view('products.index', compact('products'))
-                    ->with('i', (request()->input('page', 1) - 1) * 5);
+                return redirect()->route('products.index');
             } else {
+                return redirect()->intended('/');
                 $productController = app()->make(ProductController::class);
                 return $productController->categorywise();
             }
         } else {
             return redirect('/login')->with('error', 'Invalid email or password');
         }
-    }   
-    
+    }
+
     public function store(Request $request)
     {  
         $user = new User();
