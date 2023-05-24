@@ -33,7 +33,7 @@
  </style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand mt-2 mb-2" href="#">
+    <a class="navbar-brand mt-2 mb-2" href="{{ route('products.index') }}">
         <img src="{{ asset('assets/images/log.jpg') }}" alt="Logo" height="50">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

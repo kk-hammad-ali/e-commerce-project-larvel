@@ -80,7 +80,7 @@
     <fieldset>
         <table id="ProductTable" class="table table-striped table-responsive table-bordered">
             <thead class="bg-light">
-            <tr>
+            <tr style="font-size:15px;">
                 <th>Name</th>
                 <th>Details</th>
                 <th>Price</th>
@@ -89,7 +89,7 @@
                 <th width="280px">Action</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="font-size:15px;">
             @foreach ($products as $product)
                 <tr>
                     <td>{{ $product->name }}</td>
@@ -99,10 +99,10 @@
                     <td><img src="/image/{{ $product->image }}" width="80px" height="80px"></td>
                     <td>
                         <form action="{{ route('products.destroy',$product->id) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}" style="font-size:15px;" >Edit</a>
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" style="font-size:15px;">Delete</button>
                         </form>
                     </td>
                 </tr>
